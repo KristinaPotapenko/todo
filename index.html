@@ -8,18 +8,19 @@
     />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>todo</title>
+    <link rel="stylesheet" href="./css/main.min.css" />
   </head>
   <body>
     <div class="wrapper">
       <div class="header">
-        <div class="header--bg">
+        <div class="header__inner header--bg">
           <div class="container">
             <img class="header__logo" src="./images/logo.svg" alt="" />
           </div>
         </div>
       </div>
-      <div class="add-task">
-        <form action="">
+      <div class="add-task container">
+        <form class="add-task__form" action="">
           <input
             class="add-task__input"
             type="text"
@@ -27,8 +28,8 @@
             id="newTask"
             placeholder="Add a new task"
           />
-          <button class="add-task__button" type="submit">
-            Criar
+          <button class="add-task__button button" type="submit">
+            Create
             <svg
               width="16"
               height="16"
@@ -48,7 +49,7 @@
           </button>
         </form>
       </div>
-      <div class="tasks-created">
+      <div class="tasks-created container">
         <div class="tasks-created__header">
           <div class="tasks-created__counter counter-task">
             <p class="counter-task__description">Tasks created</p>
@@ -57,7 +58,11 @@
             </div>
           </div>
           <div class="tasks-created__counter counter-task">
-            <p class="counter-task__description">Completed</p>
+            <p
+              class="counter-task__description counter-task__description--accent"
+            >
+              Completed
+            </p>
             <div class="counter-task__info">
               <p class="counter-task__text">
                 <span class="counter-task__completed-tasks">2</span> de
@@ -69,19 +74,22 @@
         <div class="tasks-created__body">
           <div class="tasks-created--empty">
             <img class="tasks-created__image" src="./images/task.png" alt="" />
-            <p class="tasks-created__text--bold">
-              You don't have tasks registered yet
-            </p>
-            <p class="tasks-created__text">
-              Create tasks and organize your to-do items
-            </p>
+            <div class="">
+              <p class="tasks-created__text tasks-created__text--bold">
+                You don't have tasks registered yet
+              </p>
+              <p class="tasks-created__text">
+                Create tasks and organize your to-do items
+              </p>
+            </div>
           </div>
-          <ul class="tasks-created__list">
+          <!-- <ul class="tasks-created__list">
             <li class="tasks-created__item">
               <p class="tasks-created__description">
                 Buy groceries at the supermarket.
               </p>
               <svg
+                class="tasks-created__icon"
                 width="13"
                 height="14"
                 viewBox="0 0 13 14"
@@ -107,6 +115,7 @@
                 Buy groceries at the supermarket.
               </p>
               <svg
+                class="tasks-created__icon"
                 width="13"
                 height="14"
                 viewBox="0 0 13 14"
@@ -132,6 +141,7 @@
                 Buy groceries at the supermarket.
               </p>
               <svg
+                class="tasks-created__icon"
                 width="13"
                 height="14"
                 viewBox="0 0 13 14"
@@ -157,6 +167,7 @@
                 Buy groceries at the supermarket.
               </p>
               <svg
+                class="tasks-created__icon"
                 width="13"
                 height="14"
                 viewBox="0 0 13 14"
@@ -182,6 +193,7 @@
                 Buy groceries at the supermarket.
               </p>
               <svg
+                class="tasks-created__icon"
                 width="13"
                 height="14"
                 viewBox="0 0 13 14"
@@ -202,7 +214,7 @@
                 />
               </svg>
             </li>
-          </ul>
+          </ul> -->
         </div>
       </div>
     </div>
