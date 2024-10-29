@@ -10,8 +10,16 @@ const tasksList = document.querySelector(".tasks-created__list");
 const emptyList = document.querySelector(".tasks-created--empty");
 const tasksItems = tasksList.children;
 
-let countTask = 0;
-let countCompletedTasks = 0;
+let countTask = +localStorage.getItem("countTask") || 0;
+let countCompletedTasks = +localStorage.getItem("countCompletedTasks") || 0;
+const tasksArray = JSON.parse(localStorage.getItem("tasksArray")) || [];
+
+if (tasksArray.length) {
+  tasksList.innerHTML = tasksArray.join("");
+  updateTaskCount();
+  updateCompletedTaskCount();
+  toggleEmptyList();
+}
 
 function updateTaskCount() {
   countTasksElements.forEach((element) => (element.textContent = countTask));
@@ -41,9 +49,11 @@ function addTask(taskText) {
       </svg>`;
 
   taskItem.querySelector(".tasks-created__description").textContent = taskText;
-
+  tasksArray.unshift(taskItem.outerHTML);
+  localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
   tasksList.prepend(taskItem);
   countTask++;
+  localStorage.setItem("countTask", countTask);
   updateTaskCount();
   toggleEmptyList();
 }
@@ -51,6 +61,7 @@ function addTask(taskText) {
 function deleteTask(taskElement) {
   taskElement.remove();
   countTask--;
+  localStorage.setItem("countTask", countTask);
   updateTaskCount();
   toggleEmptyList();
 }
@@ -72,12 +83,21 @@ tasksList.addEventListener("click", (event) => {
   );
 
   if (isDeleteIcon) {
+    const taskIndex = Array.from(tasksList.children).indexOf(task);
+
+    if (taskIndex > -1) {
+      tasksArray.splice(taskIndex, 1);
+      localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+    }
+
     const taskEmulator = isDeleteIcon.closest("li").firstElementChild;
 
     if (taskEmulator.classList.contains("tasks-created__emulator--completed")) {
       countCompletedTasks--;
+      localStorage.setItem("countCompletedTasks", countCompletedTasks);
       updateCompletedTaskCount();
     }
+
     deleteTask(task);
   } else if (isCompleteToggle) {
     const emulator = event.target;
@@ -90,6 +110,15 @@ tasksList.addEventListener("click", (event) => {
     )
       ? 1
       : -1;
+
+    const taskIndex = Array.from(tasksList.children).indexOf(task);
+
+    if (taskIndex > -1) {
+      tasksArray.splice(taskIndex, 1, task.outerHTML);
+      localStorage.setItem("tasksArray", JSON.stringify(tasksArray));
+    }
+
+    localStorage.setItem("countCompletedTasks", countCompletedTasks);
     updateCompletedTaskCount();
   }
 });
